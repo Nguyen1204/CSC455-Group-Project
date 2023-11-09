@@ -21,4 +21,5 @@ bool isValidProductID(const std::string& productID, const std::vector<Product>& 
 
 void saveProductData(const std::vector<Product>& products);
 
+void showMenu()
 #endif
