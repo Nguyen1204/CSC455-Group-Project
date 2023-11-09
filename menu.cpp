@@ -50,5 +50,48 @@ int main() {
 
     } while (choice != 8);
 
+    std::vector<Product> products;
+
+    while (true) {
+        std::cout << "Product Management Menu:\n";
+        std::cout << "1. Add Product\n";
+        std::cout << "2. Remove Product\n";
+        std::cout << "3. List Products\n";
+        std::cout << "4. Save Products\n";
+        std::cout << "5. Quit\n";
+        std::cout << "Enter your choice (1-5): ";
+
+        int choice;
+        std::cin >> choice;
+
+        switch (choice) {
+            case 1:
+                addProduct(products);
+                break;
+
+            case 2: {
+                std::string productID;
+                std::cout << "Enter product ID to remove: ";
+                std::cin >> productID;
+                removeProduct(products, productID);
+                break;
+            }
+
+            case 3:
+                listProducts(products);
+                break;
+
+            case 4:
+                saveProductData(products);
+                break;
+
+            case 5:
+                return 0;
+
+            default:
+                std::cout << "Invalid choice. Please enter a valid option (1-4)." << std::endl;
+        }
+    }
+
     return 0;
 }
