@@ -69,9 +69,12 @@ void removeProduct(std::vector<Product>& products, const std::string& productID)
             std::cout << "Product removed from inventory." << std::endl;
             return;
         }
+            
+        else
+        {
+            std::cout << "Product with ID " << productID << " not found." << std::endl;
+        }
     }
-
-    std::cout << "Product with ID " << productID << " not found." << std::endl;
 }
 
 void listProducts(const std::vector<Product>& products) 
