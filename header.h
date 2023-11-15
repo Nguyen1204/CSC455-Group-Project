@@ -9,6 +9,16 @@ Sean Gascon */
 #include <iostream>
 #include <vector>
 
+struct Customer {
+    std::string username;
+    std::string firstName;
+    std::string lastName;
+    int age;
+    std::string creditCardNumber;
+    std::string userID;
+    int rewardPoints;
+};
+
 struct Product
 {
     std::string productID;
@@ -16,6 +26,14 @@ struct Product
     double productPrice;
     int availableItems;
 };
+
+bool isUniqueCreditCard(const std::string& creditCardNumber, const std::vector<Customer>& customer);
+
+bool validateCustomer(const Customer& customer, const std::vector<Customer>& existingCustomers);
+
+void registerCustomer(std::vector<Customer>& customers);
+
+void saveCustomerData(const std::vector<Customer>& customers);
 
 bool isValidProductID(const std::string& productID, const std::vector<Product>& products);
 
@@ -26,7 +44,5 @@ void addProduct(std::vector<Product>& products);
 void removeProduct(std::vector<Product>& products, const std::string& productID);
 
 void listProducts(const std::vector<Product>& products);
-
-void showMenu()
 
 #endif
