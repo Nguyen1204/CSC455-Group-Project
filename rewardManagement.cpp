@@ -21,8 +21,9 @@ std::string RewardSystem::redeemGift(int totalPoints) const {
     for (const auto& gift : gifts) {
         if (totalPoints >= gift.first) {
             return gift.second;
+        } else {
+            continue; // Continue the loop to check the next gift
         }
     }
     return "No gift available for the given points.";
 }
-
