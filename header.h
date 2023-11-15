@@ -27,6 +27,19 @@ struct Product
     int availableItems;
 };
 
+struct RewardSystem {
+    int pointsPerAmount;
+    std::vector<std::pair<int, std::string>> gifts;
+
+    void setPointsPerAmount(int points);
+
+    void addGift(int pointsRequired, const std::string& giftName);
+
+    void displayGifts() const;
+
+    std::string redeemGift(int totalPoints) const;
+};
+
 bool isUniqueCreditCard(const std::string& creditCardNumber, const std::vector<Customer>& customer);
 
 bool validateCustomer(const Customer& customer, const std::vector<Customer>& existingCustomers);
