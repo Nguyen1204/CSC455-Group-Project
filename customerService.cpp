@@ -243,3 +243,25 @@ void viewCustomerByID(const std::vector<Customer>& customers, const std::string&
         std::cout << "Customer with ID " << userID << " not found." << std::endl;
     }
 }
+
+void saveCustomerData(const std::vector<Customer>& customers) {
+    std::ofstream customersFile("customers.txt");
+
+    if (customersFile.is_open()) {
+        for (const Customer& customer : customers) {
+            customersFile << "Username: " << customer.username << "\n";
+            customersFile << "First Name: " << customer.firstName << "\n";
+            customersFile << "Last Name: " << customer.lastName << "\n";
+            customersFile << "Age: " << customer.age << "\n";
+            customersFile << "Credit Card Number: " << customer.creditCardNumber << "\n";
+            customersFile << "User ID: " << customer.userID << "\n";
+            customersFile << "Reward Points: " << customer.rewardPoints << "\n";
+            customersFile << "--------------------------\n";
+        }
+
+        std::cout << "Customer data saved to 'customers.txt'." << std::endl;
+        customersFile.close();
+    } else {
+        std::cerr << "Error: Failed to open 'customers.txt' for saving customer data." << std::endl;
+    }
+}
