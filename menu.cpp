@@ -11,6 +11,8 @@ int main() {
     std::vector<Product> products;
     std::vector<Customer> customers;
     RewardSystem yourRewardSystemObject;
+    std::string userID;
+    
     while (true) {
         std::cout << "Product Management Menu:\n";
         std::cout << "1. Customer Registration\n";
@@ -32,7 +34,9 @@ int main() {
                 break;
 
             case 2:
-                return 0;
+                std::cout << "Enter the user ID to remove: ";
+                std::cin >> userID;
+                removeCustomer(customers, userID);
                 break;
 
             case 3: 
@@ -52,8 +56,7 @@ int main() {
             }
 
             case 5:
-                return 0;
-                break;
+                listProducts(products);
 
             case 6:
                 return 0;
