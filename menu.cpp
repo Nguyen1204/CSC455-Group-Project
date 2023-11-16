@@ -42,19 +42,16 @@ int main() {
                 break;
 
             case 3: 
-            {
                 addProduct(products);
                 saveProductData(products);
                 break;
-            }
+
 
             case 4:
-            {
                 std::cout << "Enter product ID to remove: ";
                 std::cin >> productID;
                 removeProduct(products, productID);
                 break;
-            }
 
             case 5:
                 listProducts(products);
