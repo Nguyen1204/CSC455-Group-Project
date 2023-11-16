@@ -31,6 +31,13 @@ std::string RewardSystem::redeemGift(int totalPoints) const {
     return "No gift available for the given points.";
 }
 
+// Function to calculate the total reward points based on the total amount
+int calculateRewardPoints(double totalAmount)
+{
+    //1 reward point for every $10 spent
+    return static_cast<int>(totalAmount / 10);
+}
+
 // Function to record a transaction
 void recordTransaction(const Customer& customer, const std::vector<Product>& purchasedProducts)
 {
