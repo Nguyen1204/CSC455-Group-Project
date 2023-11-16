@@ -215,3 +215,26 @@ void displayAllCustomers(const std::vector<Customer>& customers)
         displayAllCustomers(customers);
     }
 }
+
+// Function to view customer details based on user ID
+void viewCustomerByID(const std::vector<Customer>& customers, const std::string& userID) {
+    auto it = std::find_if(customers.begin(), customers.end(),
+                           [userID](const Customer& customer) { return customer.userID == userID; });
+
+    if (it != customers.end()) {
+        // Display customer details
+        std::cout << "Customer Details for User ID: " << userID << "\n";
+        std::cout << "Username: " << it->username << "\n";
+        std::cout << "First Name: " << it->firstName << "\n";
+        std::cout << "Last Name: " << it->lastName << "\n";
+        std::cout << "Age: " << it->age << "\n";
+        std::cout << "Credit Card Number: " << it->creditCardNumber << "\n";
+        std::cout << "Reward Points: " << it->rewardPoints << "\n";
+
+        // Add more details if needed
+
+        std::cout << "--------------------------\n";
+    } else {
+        std::cout << "Customer with user ID " << userID << " not found." << std::endl;
+    }
+}
