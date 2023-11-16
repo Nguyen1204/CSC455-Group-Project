@@ -25,9 +25,10 @@ int main() {
         std::cout << "8. Quit\n";
         std::cout << "Enter your choice (1-8): ";
 
-        int choice;
         std::cin >> choice;
         std::string customerIDToRemove;
+        std::string productID;
+        std::string userID;
         
         switch (choice) {
             case 1:
