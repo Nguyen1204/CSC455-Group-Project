@@ -67,4 +67,6 @@ void displayAllCustomers(const std::vector<Customer>& customers);
 
 void removeCustomer(std::vector<Customer>& customers, const std::string& customerID);
 
+void viewCustomerByID(const std::vector<Customer>& customers, const std::string& userID);
+
 #endif
