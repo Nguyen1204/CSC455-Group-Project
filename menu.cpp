@@ -9,7 +9,7 @@
 int main() {
     std::vector<Product> products;
     std::vector<Customer> customers;
-
+    RewardSystem yourRewardSystemObject;
     while (true) {
         std::cout << "Product Management Menu:\n";
         std::cout << "1. Customer Registration\n";
@@ -58,7 +58,7 @@ int main() {
                 return 0;
 
             case 7:
-                redeemRewards(customers);
+                redeemRewards(customers, yourRewardSystemObject);
                 saveCustomerData(customers);
                 break;
 
