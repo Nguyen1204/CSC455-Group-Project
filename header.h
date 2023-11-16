@@ -63,4 +63,6 @@ int calculateRewardPoints(double totalAmount);
 
 void recordTransaction(const Customer& customer, const std::vector<Product>& purchasedProducts);
 
+void removeCustomer(std::vector<Customer>& customers, const std::string& userID);
+
 #endif
