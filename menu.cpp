@@ -34,9 +34,12 @@ int main() {
                 break;
 
             case 2:
-                std::cout << "Enter the user ID to remove: ";
-                std::cin >> userID;
-                removeCustomer(customers, userID);
+                displayAllCustomers(customers);
+                std::string customerIDToRemove;
+                std::cout << "Which customer would you like to remove?: ";
+                std::cin >> customerIDToRemove;
+                removeCustomer(customers, customerIDToRemove);
+                displayAllCustomers(customers);
                 break;
 
             case 3: 
