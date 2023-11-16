@@ -188,3 +188,20 @@ void registerCustomer(std::vector<Customer>& customers)
         }
     }
 }
+
+// Function to remove a customer based on user ID
+void removeCustomer(std::vector<Customer>& customers, const std::string& userID) {
+    auto it = std::remove_if(customers.begin(), customers.end(),
+                             [userID](const Customer& customer) { return customer.userID == userID; });
+
+    if (it != customers.end()) {
+        customers.erase(it, customers.end());
+
+        // Update the customers file after removal
+        saveCustomerData(customers);
+
+        std::cout << "Customer with user ID " << userID << " removed." << std::endl;
+    } else {
+        std::cout << "Customer with user ID " << userID << " not found." << std::endl;
+    }
+}
