@@ -159,3 +159,77 @@ void recordTransaction(const std::string& transactionID, const Customer& custome
     transactionsFile.close();
     std::cout << "Transaction recorded." << std::endl;
 }
+
+// Function to make a purchase
+void makePurchase(std::vector<Product>& products, Customer& customer) {
+    std::vector<Product> shoppingCart;
+    double totalAmount = 0.0;
+
+    // Display available products
+    listProducts(products);
+
+    // Allow the user to add products to the shopping cart
+    while (true) {
+        std::string productID;
+        std::cout << "Enter the product ID to add to your cart (or type 'done' to finish): ";
+        std::cin >> productID;
+
+        if (productID == "done") {
+            break;
+        }
+
+        // Validate product ID
+        if (!isValidProductID(productID, products)) {
+            std::cout << "Invalid product ID. Please enter a valid ID." << std::endl;
+            continue;
+        }
+
+        // Find the product in the inventory
+        auto productIt = std::find_if(products.begin(), products.end(),
+                                      [productID](const Product& p) { return p.productID == productID; });
+
+        if (productIt != products.end() && productIt->availableItems > 0) {
+            // Add the product to the shopping cart
+            shoppingCart.push_back(*productIt);
+            totalAmount += productIt->productPrice;
+            // Reduce the available items in the inventory
+            productIt->availableItems--;
+        } else {
+            std::cout << "Product not found or out of stock. Please choose another product." << std::endl;
+        }
+    }
+
+    // Calculate reward points based on the total amount
+    int rewardPoints = calculateRewardPoints(totalAmount);
+
+    // Display the total amount and reward points
+    std::cout << "Total Amount: $" << totalAmount << std::endl;
+    std::cout << "Earned Reward Points: " << rewardPoints << std::endl;
+
+    // Record the transaction
+    std::string transactionID = "T" + std::to_string(time(0));
+    recordTransaction(transactionID, customer, shoppingCart);
+
+    // Update customer's reward points
+    customer.rewardPoints += rewardPoints;
+
+    std::cout << "Purchase successful! Transaction ID: " << transactionID << std::endl;
+}
+
+// Function to handle shopping (Case 5)
+void shopping(std::vector<Product>& products, std::vector<Customer>& customers) {
+    // Get user ID
+    std::string userID;
+    std::cout << "Enter your user ID: ";
+    std::cin >> userID;
+
+    auto customerIt = std::find_if(customers.begin(), customers.end(),
+                                   [userID](const Customer& c) { return c.userID == userID; });
+
+    if (customerIt != customers.end()) {
+        // Perform the shopping
+        makePurchase(products, *customerIt);
+    } else {
+        std::cout << "User with ID " << userID << " not found." << std::endl;
+    }
+}
