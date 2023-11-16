@@ -54,7 +54,8 @@ int main() {
                 break;
 
             case 5:
-                listProducts(products);
+                shopping(products, customers);
+                break;
 
             case 6:
                 std::cout << "Enter the user ID to view customer details: ";
