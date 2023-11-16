@@ -1,6 +1,7 @@
 #include "header.h"
 #include "productManagement.cpp"
 #include "customerService.cpp"
+#include "rewardManagement.cpp"
 #include <iostream>
 #include <vector>
 
