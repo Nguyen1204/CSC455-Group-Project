@@ -15,13 +15,56 @@ int numDigits = 0;
 
 bool isUniqueCreditCard(const std::string& creditCardNumber, const std::vector<Customer>& customer)
 {
-    for (const Customer& customer : customer) {
-        if (customer.creditCardNumber == creditCardNumber) {
+    for (const Customer& customer : customer)
+    {
+        if (customer.creditCardNumber == creditCardNumber)
+        {
             return false;
         }
     }
     return true;
 }
+
+bool isValidCreditCardFormat(const std::string& creditCardNumber)
+{
+    // Using a regular expression to check the format
+    std::regex formatRegex(R"(\d{4}-\d{4}-\d{4})");
+    return std::regex_match(creditCardNumber, formatRegex);
+}
+
+bool isValidCreditCard(const std::string& creditCardNumber, const std::vector<Customer>& customers) {
+    // Check uniqueness
+    if (!isUniqueCreditCard(creditCardNumber, customers))
+    {
+        std::cout << "Credit card number is not unique." << std::endl;
+        return false;
+    }
+
+    // Check format
+    if (!isValidCreditCardFormat(creditCardNumber))
+    {
+        std::cout << "Invalid credit card format." << std::endl;
+        return false;
+    }
+
+    // Check for no leading 0
+    if (creditCardNumber[0] == '0')
+    {
+        std::cout << "Credit card number cannot start with 0." << std::endl;
+        return false;
+    }
+
+    // Check if each character after '-' is a digit
+    for (size_t i = 5; i < creditCardNumber.length(); i += 5) {
+        if (!isdigit(creditCardNumber[i]) || !isdigit(creditCardNumber[i + 1]) || !isdigit(creditCardNumber[i + 2]) || !isdigit(creditCardNumber[i + 3])) {
+            std::cout << "Invalid character in credit card number." << std::endl;
+            return false;
+        }
+    }
+
+    return true;
+}
+
 
 // Function to validate a user's information
 bool validateCustomer(const Customer& customer, const std::vector<Customer>& existingCustomers) {
@@ -52,40 +95,29 @@ bool validateCustomer(const Customer& customer, const std::vector<Customer>& exi
     // Check names
     if (customer.firstName.length() > 12 || customer.lastName.length() > 12 ||
         !std::regex_match(customer.firstName, std::regex("^[A-Za-z]+$")) ||
-        !std::regex_match(customer.lastName, std::regex("^[A-Za-z]+$"))) {
+        !std::regex_match(customer.lastName, std::regex("^[A-Za-z]+$")))
+    {
         std::cout << "Invalid first name or last name. They must not exceed 12 characters and contain only letters." << std::endl;
         return false;
     }
 
     // Check age
-    if (customer.age < 18 || customer.age > 100) {
+    if (customer.age < 18 || customer.age > 100)
+    {
         std::cout << "Invalid age. It must be between 18 and 100." << std::endl;
         return false;
     }
 
     // Check credit card
-    if (!std::regex_match(customer.creditCardNumber, std::regex("^[1-9][0-9]{2}-[0-9]{4}-[0-9]{4}$"))) {
-        std::cout << "Invalid credit card number. It should not start with 0 and have the format xxxx-xxxx-xxxx." << std::endl;
+    if (!isValidCreditCard(customer.creditCardNumber, existingCustomers))
+    {
+        std::cout << "Invalid credit card number" << std::endl;
         return false;
     }
 
-    else
-    {
-        if(customer.creditCardNumber[0]=='0')
-        {
-            std::cout << "Credit card number cannot start with 0" << std::endl;
-            return false;
-        }
-
-        if(!isUniqueCreditCard(customer.creditCardNumber, customer))
-        {
-            std::cout << "Credit card number is not unique" << std::endl;
-            return false;
-        }
-    }
-
     // Check reward points
-    if (customer.rewardPoints < 0) {
+    if (customer.rewardPoints < 0)
+    {
         std::cout << "Invalid reward points. They should be positive." << std::endl;
         return false;
     }
@@ -102,7 +134,8 @@ bool validateCustomer(const Customer& customer, const std::vector<Customer>& exi
 }
 
 // Function to create an account and append user information to the file
-void registerCustomer(std::vector<Customer>& customers) {
+void registerCustomer(std::vector<Customer>& customers)
+{
     Customer newCustomer;
 
     // Collect user information
@@ -130,12 +163,14 @@ void registerCustomer(std::vector<Customer>& customers) {
     newCustomer.userID = std::to_string(currentTime);
 
     // Validate the customer's information
-    if (validateCustomer(newCustomer, customers)) {
+    if (validateCustomer(newCustomer, customers))
+    {
         customers.push_back(newCustomer);
 
         // Append user information to the file
         std::ofstream customersFile("customers.txt", std::ios::app);
-        if (customersFile.is_open()) {
+        if (customersFile.is_open())
+        {
             customersFile << newCustomer.username << "\n"
                           << newCustomer.firstName << "\n"
                           << newCustomer.lastName << "\n"
@@ -145,7 +180,10 @@ void registerCustomer(std::vector<Customer>& customers) {
                           << newCustomer.userID << "\n\n";
             customersFile.close();
             std::cout << "Account created."<< std::endl;
-        } else {
+        }
+            
+        else
+        {
             std::cerr << "Failed to create account." << std::endl;
         }
     }
