@@ -69,4 +69,8 @@ void removeCustomer(std::vector<Customer>& customers, const std::string& custome
 
 void viewCustomerByID(const std::vector<Customer>& customers, const std::string& userID);
 
+void makePurchase(std::vector<Product>& products, Customer& customer);
+
+void shopping(std::vector<Product>& products, std::vector<Customer>& customers);
+
 #endif
