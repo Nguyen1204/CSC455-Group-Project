@@ -220,3 +220,26 @@ void displayAllCustomers(const std::vector<Customer>& customers)
         std::cout << "--------------------------" << std::endl;
     }
 }
+
+void viewCustomerByID(const std::vector<Customer>& customers, const std::string& userID)
+{
+    auto it = std::find_if(customers.begin(), customers.end(),
+                           [userID](const Customer& customer) { return customer.userID == userID; });
+
+    if (it != customers.end())
+    {
+        std::cout << "Customer Details:" << std::endl;
+        std::cout << "Username: " << it->username << std::endl;
+        std::cout << "First Name: " << it->firstName << std::endl;
+        std::cout << "Last Name: " << it->lastName << std::endl;
+        std::cout << "Age: " << it->age << std::endl;
+        std::cout << "Credit Card Number: " << it->creditCardNumber << std::endl;
+        std::cout << "Reward Points: " << it->rewardPoints << std::endl;
+        std::cout << "User ID: " << it->userID << std::endl;
+    } 
+    
+    else
+    {
+        std::cout << "Customer with ID " << userID << " not found." << std::endl;
+    }
+}
