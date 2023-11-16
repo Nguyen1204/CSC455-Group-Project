@@ -46,7 +46,6 @@ int main() {
                 saveProductData(products);
                 break;
 
-
             case 4:
                 std::cout << "Enter product ID to remove: ";
                 std::cin >> productID;
