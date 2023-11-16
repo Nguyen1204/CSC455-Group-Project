@@ -19,8 +19,8 @@ int main() {
         std::cout << "5. Shopping\n";
         std::cout << "6. View Customer Using Customer ID\n";
         std::cout << "7. Redeem Rewards\n";
-        std::cout << "7. Quit\n";
-        std::cout << "Enter your choice (1-7): ";
+        std::cout << "8. Quit\n";
+        std::cout << "Enter your choice (1-8): ";
 
         int choice;
         std::cin >> choice;
