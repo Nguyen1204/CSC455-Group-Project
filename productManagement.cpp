@@ -69,7 +69,7 @@ void removeProduct(std::vector<Product>& products, const std::string& productID)
             std::cout << "Product removed from inventory." << std::endl;
             return;
         }
-            
+
         else
         {
             std::cout << "Product with ID " << productID << " not found." << std::endl;
@@ -160,76 +160,84 @@ void recordTransaction(const std::string& transactionID, const Customer& custome
     std::cout << "Transaction recorded." << std::endl;
 }
 
-// Function to make a purchase
-void makePurchase(std::vector<Product>& products, Customer& customer) {
-    std::vector<Product> shoppingCart;
-    double totalAmount = 0.0;
+//Shopping Functionallity
+
+void shoppingTransaction(std::vector<Product>& products)
+{
+    // Load product data
+    loadProductData(products);
 
     // Display available products
-    listProducts(products);
-
-    // Allow the user to add products to the shopping cart
-    while (true) {
-        std::string productID;
-        std::cout << "Enter the product ID to add to your cart (or type 'done' to finish): ";
-        std::cin >> productID;
-
-        if (productID == "done") {
-            break;
-        }
-
-        // Validate product ID
-        if (!isValidProductID(productID, products)) {
-            std::cout << "Invalid product ID. Please enter a valid ID." << std::endl;
-            continue;
-        }
-
-        // Find the product in the inventory
-        auto productIt = std::find_if(products.begin(), products.end(),
-                                      [productID](const Product& p) { return p.productID == productID; });
-
-        if (productIt != products.end() && productIt->availableItems > 0) {
-            // Add the product to the shopping cart
-            shoppingCart.push_back(*productIt);
-            totalAmount += productIt->productPrice;
-            // Reduce the available items in the inventory
-            productIt->availableItems--;
-        } else {
-            std::cout << "Product not found or out of stock. Please choose another product." << std::endl;
-        }
+    std::cout << "Available Products:" << std::endl;
+    for (const Product& product : products) {
+        std::cout << "ID: " << product.productID << ", Name: " << product.productName
+                  << ", Price: $" << product.productPrice << ", Available: " << product.availableItems << std::endl;
     }
 
-    // Calculate reward points based on the total amount
-    int rewardPoints = calculateRewardPoints(totalAmount);
+    // Get user input for the product ID and quantity
+    std::string productID;
+    int quantity;
+    std::cout << "Enter the product ID you want to purchase: ";
+    std::cin >> productID;
+    std::cout << "Enter the quantity you want to purchase: ";
+    std::cin >> quantity;
 
-    // Display the total amount and reward points
-    std::cout << "Total Amount: $" << totalAmount << std::endl;
-    std::cout << "Earned Reward Points: " << rewardPoints << std::endl;
+    // Find the product with the specified ID
+    auto it = std::find_if(products.begin(), products.end(),
+                           [productID](const Product& product) { return product.productID == productID; });
 
-    // Record the transaction
-    std::string transactionID = "T" + std::to_string(time(0));
-    recordTransaction(transactionID, customer, shoppingCart);
+    if (it != products.end()) {
+        // Check if there is enough supply
+        if (it->availableItems >= quantity) {
+            // Record the transaction
+            std::ofstream transactionsFile("transactions.txt", std::ios::app);
+            if (transactionsFile.is_open()) {
+                transactionsFile << "Product ID: " << it->productID << "\n";
+                transactionsFile << "Product Name: " << it->productName << "\n";
+                transactionsFile << "Quantity Purchased: " << quantity << "\n";
+                transactionsFile << "Total Price: $" << (it->productPrice * quantity) << "\n";
+                transactionsFile << "--------------------------\n";
+                transactionsFile.close();
 
-    // Update customer's reward points
-    customer.rewardPoints += rewardPoints;
+                // Update product availability
+                it->availableItems -= quantity;
 
-    std::cout << "Purchase successful! Transaction ID: " << transactionID << std::endl;
+                // Save the updated product data
+                saveProductData(products);
+
+                std::cout << "Transaction recorded successfully." << std::endl;
+            } else {
+                std::cerr << "Failed to open 'transactions.txt' for writing." << std::endl;
+            }
+        } else {
+            std::cout << "Insufficient supply for the specified quantity." << std::endl;
+        }
+    } else {
+        std::cout << "Product with ID " << productID << " not found." << std::endl;
+    }
 }
 
-// Function to handle shopping
-void shopping(std::vector<Product>& products, std::vector<Customer>& customers) {
-    // Get user ID
-    std::string userID;
-    std::cout << "Enter your user ID: ";
-    std::cin >> userID;
+void loadProductData(std::vector<Product>& products)
+{
+    std::ifstream productsFile("products.txt");
+    if (productsFile.is_open())
+    {
+        while (!productsFile.eof())
+        {
+            Product product;
+            std::getline(productsFile, product.productID);
+            std::getline(productsFile, product.productName);
+            productsFile >> product.productPrice;
+            productsFile >> product.availableItems;
+            productsFile.ignore(); // Ignore the newline character
 
-    auto customerIt = std::find_if(customers.begin(), customers.end(),
-                                   [userID](const Customer& c) { return c.userID == userID; });
-
-    if (customerIt != customers.end()) {
-        // Perform the shopping
-        makePurchase(products, *customerIt);
-    } else {
-        std::cout << "User with ID " << userID << " not found." << std::endl;
+            products.push_back(product);
+        }
+        productsFile.close();
+    }
+    
+    else
+    {
+        std::cerr << "Failed to open 'products.txt' for reading." << std::endl;
     }
 }
