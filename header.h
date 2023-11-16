@@ -39,7 +39,6 @@ struct RewardSystem {
 
     std::string redeemGift(int totalPoints) const;
 
-    int calculateRewardPoints(double totalAmount);
 };
 
 bool isUniqueCreditCard(const std::string& creditCardNumber, const std::vector<Customer>& customer);
