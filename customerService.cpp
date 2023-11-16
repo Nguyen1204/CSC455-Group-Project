@@ -189,19 +189,29 @@ void registerCustomer(std::vector<Customer>& customers)
     }
 }
 
-// Function to remove a customer based on user ID
-void removeCustomer(std::vector<Customer>& customers, const std::string& userID) {
-    auto it = std::remove_if(customers.begin(), customers.end(),
-                             [userID](const Customer& customer) { return customer.userID == userID; });
+//Customer Removal Section
 
-    if (it != customers.end()) {
+void removeCustomer(std::vector<Customer>& customers, const std::string& customerID)
+{
+    auto it = std::remove_if(customers.begin(), customers.end(), [customerID](const Customer& customer) {return customer.userID == customerID;});
+
+    if (it != customers.end())
+    {
         customers.erase(it, customers.end());
+        std::cout << "Customer with ID " << customerID << " removed successfully." << std::endl;
+    }
 
-        // Update the customers file after removal
-        saveCustomerData(customers);
+    else
+    {
+        std::cout << "Customer with ID " << customerID << " not found." << std::endl;
+    }
+}
 
-        std::cout << "Customer with user ID " << userID << " removed." << std::endl;
-    } else {
-        std::cout << "Customer with user ID " << userID << " not found." << std::endl;
+void displayAllCustomers(const std::vector<Customer>& customers)
+{
+    std::cout << "List of all customers:" << std::endl;
+    for (const Customer& customer : customers)
+    {
+        displayAllCustomers(customers);
     }
 }
