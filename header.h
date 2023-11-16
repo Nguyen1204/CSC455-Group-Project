@@ -59,5 +59,5 @@ void removeProduct(std::vector<Product>& products, const std::string& productID)
 
 void listProducts(const std::vector<Product>& products);
 
-void recordTransaction(const Customer& customer, const std::vector<Product>& purchasedProducts)
+void recordTransaction(const Customer& customer, const std::vector<Product>& purchasedProducts);
 #endif
