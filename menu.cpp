@@ -5,14 +5,14 @@
 #include <iostream>
 #include <vector>
 
-
-//Another menu would could use (This was what I was using for my program
 int main() {
     std::vector<Product> products;
     std::vector<Customer> customers;
     RewardSystem yourRewardSystemObject;
     std::string userID;
-    
+    std::string productID;
+    std::string customerIDToRemove;
+
     while (true) {
         std::cout << "Product Management Menu:\n";
         std::cout << "1. Customer Registration\n";
@@ -25,10 +25,8 @@ int main() {
         std::cout << "8. Quit\n";
         std::cout << "Enter your choice (1-8): ";
 
+        int choice;
         std::cin >> choice;
-        std::string customerIDToRemove;
-        std::string productID;
-        std::string userID;
         
         switch (choice) {
             case 1:
@@ -52,7 +50,6 @@ int main() {
 
             case 4:
             {
-                std::string productID;
                 std::cout << "Enter product ID to remove: ";
                 std::cin >> productID;
                 removeProduct(products, productID);
