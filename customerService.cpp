@@ -87,7 +87,7 @@ bool validateCustomer(const Customer& customer, const std::vector<Customer>& exi
 
         if (numDigits > 3)
         {
-            std::cout << ("Username cannot contain more than 3 numbers.") << std::endl;
+            std::cout << ("Username must be unique and contain more than 3 numbers.") << std::endl;
             return false;
         }
     }
@@ -138,7 +138,6 @@ void registerCustomer(std::vector<Customer>& customers)
 {
     Customer newCustomer;
 
-    // Collect user information
     std::cout << "Enter your unique username (Must be 10 characters long followed by no more than 3 digits): ";
     std::cin >> newCustomer.username;
 
@@ -157,17 +156,14 @@ void registerCustomer(std::vector<Customer>& customers)
     std::cout << "Enter reward points: ";
     std::cin >> newCustomer.rewardPoints;
 
-    // Generate a unique user ID (based on current time)
     time_t currentTime;
     time(&currentTime);
     newCustomer.userID = std::to_string(currentTime);
 
-    // Validate the customer's information
     if (validateCustomer(newCustomer, customers))
     {
         customers.push_back(newCustomer);
 
-        // Append user information to the file
         std::ofstream customersFile("customers.txt", std::ios::app);
         if (customersFile.is_open())
         {
@@ -213,28 +209,5 @@ void displayAllCustomers(const std::vector<Customer>& customers)
     for (const Customer& customer : customers)
     {
         displayAllCustomers(customers);
-    }
-}
-
-// Function to view customer details based on user ID
-void viewCustomerByID(const std::vector<Customer>& customers, const std::string& userID) {
-    auto it = std::find_if(customers.begin(), customers.end(),
-                           [userID](const Customer& customer) { return customer.userID == userID; });
-
-    if (it != customers.end()) {
-        // Display customer details
-        std::cout << "Customer Details for User ID: " << userID << "\n";
-        std::cout << "Username: " << it->username << "\n";
-        std::cout << "First Name: " << it->firstName << "\n";
-        std::cout << "Last Name: " << it->lastName << "\n";
-        std::cout << "Age: " << it->age << "\n";
-        std::cout << "Credit Card Number: " << it->creditCardNumber << "\n";
-        std::cout << "Reward Points: " << it->rewardPoints << "\n";
-
-        // Add more details if needed
-
-        std::cout << "--------------------------\n";
-    } else {
-        std::cout << "Customer with user ID " << userID << " not found." << std::endl;
     }
 }
