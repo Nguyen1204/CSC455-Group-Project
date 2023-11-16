@@ -62,7 +62,10 @@ int main() {
                 listProducts(products);
 
             case 6:
-                return 0;
+                std::cout << "Enter the user ID to view customer details: ";
+                std::cin >> userID;
+                viewCustomerByID(customers, userID);
+                break;
 
             case 7:
                 redeemRewards(customers, yourRewardSystemObject);
