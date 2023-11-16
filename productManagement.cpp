@@ -111,3 +111,51 @@ void saveProductData(const std::vector<Product>& products)
         std::cerr << "Failed to open 'products.txt'" << std::endl;
     }
 }
+
+// Function to calculate the total reward points based on the total amount
+int calculateRewardPoints(double totalAmount)
+{
+    //1 reward point for every $10 spent
+    return static_cast<int>(totalAmount / 10);
+}
+
+// Function to record a transaction
+void recordTransaction(const std::string& transactionID, const Customer& customer, const std::vector<Product>& purchasedProducts)
+{
+    std::ofstream transactionsFile("transactions.txt", std::ios::app);
+
+    if (!transactionsFile.is_open())
+    {
+        std::cerr << "Error: Failed to open 'transactions.txt' for recording the transaction." << std::endl;
+        return;
+    }
+
+    // Write the transaction data to the file
+    transactionsFile << "Transaction ID: " << transactionID << "\n"
+                     << "User ID: " << customer.userID << "\n";
+
+    // Write product IDs
+    transactionsFile << "Product IDs: ";
+    for (const Product& product : purchasedProducts)
+    {
+        transactionsFile << product.productID << ", ";
+    }
+    transactionsFile << "\n";
+
+    // Calculate and write the total amount
+    double totalAmount = 0.0;
+    for (const Product& product : purchasedProducts)
+    {
+        totalAmount += product.productPrice;
+    }
+    transactionsFile << "Total amount: $" << totalAmount << "\n";
+
+    // Calculate and write the total reward points
+    int totalRewardPoints = calculateRewardPoints(totalAmount);
+    transactionsFile << "Total reward points: " << totalRewardPoints << "\n";
+
+    transactionsFile << "--------------------------\n";
+
+    transactionsFile.close();
+    std::cout << "Transaction recorded." << std::endl;
+}
