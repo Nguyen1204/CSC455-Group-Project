@@ -27,7 +27,8 @@ int main() {
 
         int choice;
         std::cin >> choice;
-
+        std::string customerIDToRemove;
+        
         switch (choice) {
             case 1:
                 registerCustomer(customers);
@@ -35,7 +36,6 @@ int main() {
 
             case 2:
                 displayAllCustomers(customers);
-                std::string customerIDToRemove;
                 std::cout << "Which customer would you like to remove?: ";
                 std::cin >> customerIDToRemove;
                 removeCustomer(customers, customerIDToRemove);
