@@ -208,6 +208,15 @@ void displayAllCustomers(const std::vector<Customer>& customers)
     std::cout << "List of all customers:" << std::endl;
     for (const Customer& customer : customers)
     {
-        displayAllCustomers(customers);
+        // Display information for each customer
+        // Modify this part based on how you want to display the customer information
+        std::cout << "Username: " << customer.username << std::endl;
+        std::cout << "First Name: " << customer.firstName << std::endl;
+        std::cout << "Last Name: " << customer.lastName << std::endl;
+        std::cout << "Age: " << customer.age << std::endl;
+        std::cout << "Credit Card Number: " << customer.creditCardNumber << std::endl;
+        std::cout << "User ID: " << customer.userID << std::endl;
+        std::cout << "Reward Points: " << customer.rewardPoints << std::endl;
+        std::cout << "--------------------------" << std::endl;
     }
 }
