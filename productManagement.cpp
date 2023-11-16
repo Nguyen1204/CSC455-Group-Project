@@ -216,7 +216,7 @@ void makePurchase(std::vector<Product>& products, Customer& customer) {
     std::cout << "Purchase successful! Transaction ID: " << transactionID << std::endl;
 }
 
-// Function to handle shopping (Case 5)
+// Function to handle shopping
 void shopping(std::vector<Product>& products, std::vector<Customer>& customers) {
     // Get user ID
     std::string userID;
