@@ -3,10 +3,11 @@ Nicolas Duong
 Sean Gascon */
 
 //header.h
+
 #ifndef HEADER_H
 #define HEADER_H
 
-#include <iostream>
+#include <string>
 #include <vector>
 
 struct Customer {
@@ -19,8 +20,7 @@ struct Customer {
     int rewardPoints;
 };
 
-struct Product
-{
+struct Product {
     std::string productID;
     std::string productName;
     double productPrice;
@@ -51,13 +51,13 @@ void saveCustomerData(const std::vector<Customer>& customers);
 
 bool isValidProductID(const std::string& productID, const std::vector<Product>& products);
 
-void saveProductData(const std::vector<Product>& products);
-
 void addProduct(std::vector<Product>& products);
 
 void removeProduct(std::vector<Product>& products, const std::string& productID);
 
 void listProducts(const std::vector<Product>& products);
+
+void saveProductData(const std::vector<Product>& products);
 
 int calculateRewardPoints(double totalAmount);
 
@@ -67,10 +67,10 @@ void displayAllCustomers(const std::vector<Customer>& customers);
 
 void removeCustomer(std::vector<Customer>& customers, const std::string& customerID);
 
-void viewCustomerByID(const std::vector<Customer>& customers, const std::string& userID);
+void redeemRewards(std::vector<Customer>& customers, const RewardSystem& rewardSystem);
 
-void makePurchase(std::vector<Product>& products, Customer& customer);
+void loadProductData(std::vector<Product>& products);\
 
-void shopping(std::vector<Product>& products, std::vector<Customer>& customers);
+void shoppingTransaction(std::vector<Product>& products);
 
 #endif
