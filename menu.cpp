@@ -58,13 +58,15 @@ int main() {
                 return 0;
 
             case 7:
-                return 0;
+                redeemRewards(customers);
+                saveCustomerData(customers);
+                break;
 
             case 8:
                 return 0;
 
             default:
-                std::cout << "Invalid choice. Please enter a valid option (1-7)." << std::endl;
+                std::cout << "Invalid choice. Please enter a valid option (1-8)." << std::endl;
         }
     }
 
