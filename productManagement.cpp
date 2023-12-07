@@ -59,6 +59,7 @@ void addProduct(std::vector<Product>& products)
     std::cout << "Product added to inventory." << std::endl;
 }
 
+// Function to remove product
 void removeProduct(std::vector<Product>& products, const std::string& productID) 
 {
     for (auto it = products.begin(); it != products.end(); ++it) 
@@ -77,6 +78,7 @@ void removeProduct(std::vector<Product>& products, const std::string& productID)
     }
 }
 
+//Function list products
 void listProducts(const std::vector<Product>& products) 
 {
     std::cout << "List of Products in Inventory:\n";
@@ -90,6 +92,7 @@ void listProducts(const std::vector<Product>& products)
     }
 }
 
+//Function save product
 void saveProductData(const std::vector<Product>& products)
 {
     std::ofstream productsFile("products.txt");
