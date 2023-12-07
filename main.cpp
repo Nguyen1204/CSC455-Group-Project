@@ -13,6 +13,7 @@ int main() {
     std::string productID;
     std::string customerIDToRemove;
 
+    //List the menu
     while (true) {
         std::cout << "Product Management Menu:\n";
         std::cout << "1. Customer Registration\n";
